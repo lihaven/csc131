@@ -86,6 +86,16 @@ public class TM{
 					System.out.println("Time spent on all tasks:\t" + totalTimeSpent);
 				}
 				break;
+			case "size":
+				if(name != null){
+					taskIndex = findIndex(taskList, name);
+					if(taskIndex >= 0) {
+						cmdSize(taskList.get(taskIndex), details);
+					} else {
+						output = "Task doesn't exist.";
+					}		
+				}
+				break;
 			default:  
 				break;
 		}
@@ -140,7 +150,8 @@ public class TM{
 	}
 
 	public void cmdSummaryTask(Task task){
-		System.out.println("Task Name: \t" + task.getName());
+		System.out.println("Task name: \t" + task.getName());
+		System.out.println("Task size: \t" + task.getSize());
 		System.out.println("Time spent:\t" + task.getTotalTimeSpent());
 		for(int i = 0; i < task.numSessions(); i++){
 			System.out.print("Session " + i + ":\t");
@@ -151,6 +162,11 @@ public class TM{
 
 	public boolean cmdDescribe(Task task, String details){
 		task.setDescription(details);
+		return true;
+	}
+
+	public boolean cmdSize(Task task, String details){
+		task.setSize(details);
 		return true;
 	}
 	
@@ -208,12 +224,12 @@ public class TM{
 //LocalDateTime timePoint = LocalDateTime.now();
 
 class Task implements Serializable{
+	String name;
+	String description;
+	String size;
 	ArrayList<LocalDateTime> startTimes = new ArrayList<LocalDateTime>(); 
 	ArrayList<LocalDateTime> stopTimes 	= new ArrayList<LocalDateTime>();
 	Duration timeSpent;
-		//What I can leave off in java 8? Did both declarations to be on the safe side.
-	String description;
-	String name;
 
 	Task(String name){
 		this.name = name;
@@ -223,6 +239,11 @@ class Task implements Serializable{
 	Task(String name, String description){
 		this(name);
 		this.description = description;
+	}
+
+	Task(String name, String description, String size){
+		this(name, description);
+		this.size = size;
 	}
 
 	String getName(){
@@ -248,8 +269,14 @@ class Task implements Serializable{
 	Duration getTotalTimeSpent(){
 		return timeSpent;
 	}
+
+	void setSize(String size){
+		this.size = size;
+	}
 	
-	
+	String getSize(){
+		return size;
+	}
 	boolean inProgress(){
 		if (startTimes.size() != stopTimes.size()) return true;
 		return false;
