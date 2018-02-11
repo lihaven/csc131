@@ -18,7 +18,7 @@ import java.io.*; //is it good practice to import the whole thing?
 public class TM{
 	
 	public void appMain(String args[]){
-		String cmd = null, name = null, details = null;
+		String cmd = null, name = null, details = null, details2 = null;
 	
 		if(args.length == 1){
 				cmd = args[0];
@@ -29,6 +29,11 @@ public class TM{
 				cmd = args[0];
 				name = args[1];
 				details = args[2];
+		}else if(args.length == 4){
+				cmd = args[0];
+				name = args[1];
+				details = args[2];
+				details2 = args[3];
 		}else {
 				printUsage();
 				System.exit(0);
@@ -66,6 +71,9 @@ public class TM{
 				taskIndex = findIndex(taskList, name);
 				if(taskIndex >= 0) {
 					successStatus = cmdDescribe(taskList.get(taskIndex), details);
+					if(args.length == 4){
+						cmdSize(taskList.get(taskIndex), details2);
+					}
 				} else {
 					output = "Task doesn't exist.";
 				}		
