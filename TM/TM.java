@@ -1,7 +1,7 @@
 /* Program by Lindsay Haven, for CSC131, CSUS.
  *
  * This application was designed to keep track of the time spent on named tasks. 
- * It also allows the user to describe a task.  This impliemtation of the program 
+ * It also allows the user to describe a task. This impliemtation of the program 
  * was meant to be the first of many sprints.
  * 
  * The program allows a user to start, stop, describe, and print summaries of tasks. 
@@ -11,6 +11,7 @@
 
 
 import java.time.*;
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.io.Serializable;
 import java.io.*; //is it good practice to import the whole thing?
@@ -174,8 +175,18 @@ public class TM{
 	}
 
 	public boolean cmdSize(Task task, String details){
-		task.setSize(details);
-		return true;
+		ArrayList<String> sizes = new ArrayList<String>();
+		String[] temp = new String[] {"XS", "S", "M", "L", "XL"};
+		sizes.addAll(Arrays.asList(temp));
+
+		if (sizes.contains(details)) {
+			task.setSize(details);
+			System.out.println(true);
+			return true;
+		} else {
+			System.out.println(false);
+			return false;
+		}
 	}
 	
 	public boolean saveData(String fileName, ArrayList<Task> list){
