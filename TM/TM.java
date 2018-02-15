@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.io.Serializable;
 import java.io.*; //is it good practice to import the whole thing?
 
+
 public class TM{
 	
 	public void appMain(String args[]){
@@ -76,7 +77,11 @@ public class TM{
 						cmdSize(taskList.get(taskIndex), details2);
 					}
 				} else {
-					output = "Task doesn't exist.";
+					if(args.length == 4){
+						taskList.add(new Task(name, details, details2));
+					} else {
+						taskList.add(new Task(name, details));
+					}
 				}		
 			    break;
 			case "summary":
@@ -239,8 +244,6 @@ public class TM{
 	}
 }
 
-//Duration oneDay = Duration.between(today, yesterday);
-//LocalDateTime timePoint = LocalDateTime.now();
 
 class Task implements Serializable{
 	String name;
@@ -270,7 +273,11 @@ class Task implements Serializable{
 	}
 
 	void setDescription(String description){
-		this.description = description;
+		if(this.description == null){
+			this.description = description;
+		} else {
+			this.description = this.description + " " + description;
+		}
 	}
 	
 	String getDescription(){
