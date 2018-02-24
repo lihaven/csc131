@@ -6,12 +6,12 @@ Document by **Lindsay Haven**, created for CSC 131, CSUS
 ## Usage
 | Command line                                 |Utility                                                                  |
 |----------------------------------------------|-------------------------------------------------------------------------|
-|java TM start \<task name\>                   |Logs the start time of a task with name <task name>                      |
-|java TM stop \<task name\>                    |Logs the stop time of a task with name <task name>                       |
+|java TM start \<task name\>                   |Logs the start time of a task with name \<task name\>                    |
+|java TM stop \<task name\>                    |Logs the stop time of a task with name \<task name\>                     |
 |java TM describe \<task name\> \<description\>|Logs the description of the task with name <task name>. Additional descriptions beyond the first will be appended.|
 |java TM summary \<task name\>	               |Provides a report of the activity and total time spent working on task with name \<task name\>|
 |java TM summary                               |Provies a report of the activity & total time spent working on ALL tasks |
-|java TM size \<task name\> \<task size\>      |Logs the size of a task with name <take name>                            |
+|java TM size \<task name\> \<task size\>      |Logs the size of a task with name \<task name\>                            |
 |java TM describe \<task name\> \<task description\> \<task size\>|Describe command takes an additional optional size parameter|
 
 ## File and Code Organization
