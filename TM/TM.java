@@ -4,21 +4,19 @@
  * It also allows the user to describe a task. This impliemtation of the program 
  * was meant to be the first of many sprints.
  * 
- * The program allows a user to start, stop, describe, and print summaries of tasks. 
- * Although there will be more itterations on this program, good user facing messages
- * are lacking, even for a first sprint.
+ * The program allows a user to start, stop, describe, and print summaries of 
+ * tasks.Although there will be more iterations on this program, good user 
+ * facing messages are lacking.
  */ 
 
-
-import java.time.*;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.io.Serializable;
 import java.io.*; //is it good practice to import the whole thing?
-
+import java.time.*;
 
 public class TM{
-	
+
 	public void appMain(String args[]){
 		String cmd = null, name = null, details = null, details2 = null;
 	
@@ -44,7 +42,7 @@ public class TM{
 		String output = "";
 		ArrayList<Task> taskList = new ArrayList<Task>();
 		String fileName = "TM.log";
-		
+	
 		taskList = getData(fileName);
 
 		int taskIndex = -1;
@@ -242,92 +240,8 @@ public class TM{
 		}
 		return dataIndex;
 	}
+
 }
 
 
-class Task implements Serializable{
-	String name;
-	String description;
-	String size;
-	ArrayList<LocalDateTime> startTimes = new ArrayList<LocalDateTime>(); 
-	ArrayList<LocalDateTime> stopTimes 	= new ArrayList<LocalDateTime>();
-	Duration timeSpent;
 
-	Task(String name){
-		this.name = name;
-		timeSpent = Duration.ofSeconds(0);
-	}
-
-	Task(String name, String description){
-		this(name);
-		this.description = description;
-	}
-
-	Task(String name, String description, String size){
-		this(name, description);
-		this.size = size;
-	}
-
-	String getName(){
-		return name;
-	}
-
-	void setDescription(String description){
-		if(this.description == null){
-			this.description = description;
-		} else {
-			this.description = this.description + " " + description;
-		}
-	}
-	
-	String getDescription(){
-		return description;
-	}
-	
-	LocalDateTime getStart(int index){
-		return startTimes.get(index);
-	}
-
-	LocalDateTime getStop(int index){
-		return stopTimes.get(index);
-	}
-
-	Duration getTotalTimeSpent(){
-		return timeSpent;
-	}
-
-	void setSize(String size){
-		this.size = size;
-	}
-	
-	String getSize(){
-		return size;
-	}
-	boolean inProgress(){
-		if (startTimes.size() != stopTimes.size()) return true;
-		return false;
-	}
-
-	int numSessions(){
-		return stopTimes.size();
-	}
-
-	boolean start(){
-		if(!this.inProgress()){
-			startTimes.add(LocalDateTime.now());
-			return true;
-		}
-		return false;
-	}
-
-	boolean stop(){
-		if(this.inProgress()){
-			stopTimes.add(LocalDateTime.now());
-			int i = stopTimes.size()-1;
-			Duration newDuration = Duration.between(stopTimes.get(i),startTimes.get(i));
-			timeSpent = timeSpent.plus(newDuration);
-			return true;
-		}
-		return false;
-	}
-}
