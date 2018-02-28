@@ -1,7 +1,7 @@
 /* Program by Lindsay Haven, for CSC131, CSUS.
  *
  * This application was designed to keep track of the time spent on named tasks. 
- * It also allows the user to describe a task. This impliemtation of the program 
+ * It also allows the user to describe a task. This implementation of the program 
  * was meant to be the first of many sprints.
  * 
  * The program allows a user to start, stop, describe, and print summaries of 
@@ -16,29 +16,43 @@ import java.io.*; //is it good practice to import the whole thing?
 import java.time.*;
 
 public class TM{
-
-	public void appMain(String args[]){
-		String cmd = null, name = null, details = null, details2 = null;
 	
-		if(args.length == 1){
-				cmd = args[0];
-		}else if(args.length == 2){
-				cmd = args[0];
-				name = args[1];
-		}else if(args.length == 3){
-				cmd = args[0];
-				name = args[1];
-				details = args[2];
-		}else if(args.length == 4){
-				cmd = args[0];
-				name = args[1];
-				details = args[2];
-				details2 = args[3];
-		}else {
-				printUsage();
-				System.exit(0);
-		}
+	public static void main(String args[]){
+		TM tm = new TM();
+		tm.appMain(args);
+	}
+	
+	public void appMain(String args[]){
+		ITMModel taskManager = new TMModel();
+		
+		System.out.println(args.length);		
+		
+		//args[0] is the case command
+		//args[1] is a name of the task to edit
+		//args[2] is the new description or size
+		//args[3] is an optional size update for a task
+		
+		switch(args[0]){
+			
+			case "start": 		 taskManager.startTask(args[1]); break;
+			
+			case "stop": 		 taskManager.stopTask(args[1]); break;
+						
+			case "describe": 	 taskManager.describeTask(args[1],args[2]); break;
+						
+			case "size":		 taskManager.sizeTask(args[1],args[2]); break;
+			
+			case "delete":     taskManager.deleteTask(args[1]); break;
+				
+			case "rename":     taskManager.renameTask(args[1],args[2]); break;
+			
+			case "summary":    System.out.println("Summary to come later.");  break;
+				//TODO				
+				//the task list isn't here any more, but how do I have this
+				//class manage the display?
+		}		
 
+		/*
 		String output = "";
 		ArrayList<Task> taskList = new ArrayList<Task>();
 		String fileName = "TM.log";
@@ -86,12 +100,12 @@ public class TM{
 				if(name != null){
 					taskIndex = findIndex(taskList, name);
 					if(taskIndex >= 0){
-						cmdSummaryTask(taskList.get(taskIndex));
+						summaryOfTask(taskList.get(taskIndex));
 					}
 				} else {
 					Duration totalTimeSpent = Duration.ofSeconds(0);
 					for(Task element : taskList){
-						cmdSummaryTask(element);
+						summaryOfTask(element);
 						totalTimeSpent = totalTimeSpent.plus(element.getTotalTimeSpent());
 						System.out.println();
 					}
@@ -115,6 +129,7 @@ public class TM{
 		saveData(fileName, taskList);
 		
 		//printResults(cmd, name, successStatus);
+		*/
 
 	}
 
@@ -138,10 +153,7 @@ public class TM{
 		}
 	}
 
-	public static void main(String args[]){
-		TM tm = new TM();
-		tm.appMain(args);
-	}
+
 
 	public void printUsage(){
 			System.out.println("\tSomething went wrong.");//replace with usage description
@@ -161,7 +173,7 @@ public class TM{
 		return false;
 	}
 
-	public void cmdSummaryTask(Task task){
+	public void summaryOfTask(Task task){
 		System.out.println("Task name: \t" + task.getName());
 		System.out.println("Task size: \t" + task.getSize());
 		System.out.println("Time spent:\t" + task.getTotalTimeSpent());

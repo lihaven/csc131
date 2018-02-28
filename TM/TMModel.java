@@ -1,42 +1,47 @@
 import java.io.Serializable;
 import java.io.*; //is it good practice to import the whole thing?
 import java.time.*;
+import java.util.*;
 
-public TMModel implements ITMModel {
+public class TMModel implements ITMModel {
 
+	 // constructors
+	 TMModel(){		 
+	 }	
+	
     // set information in our model
     //
-    //TODO: boolean startTask(String name);
-    //TODO: boolean stopTask(String name);
-    //TODO: boolean describeTask(String name, String description);
-    //TODO: boolean sizeTask(String name, String size);
-    //TODO: boolean deleteTask(String name);
-    //TODO: boolean renameTask(String oldName, String newName);
+    public boolean startTask(String name) {return true;}
+    public boolean stopTask(String name) {return true;}
+    public boolean describeTask(String name, String description) {return true;}
+    public boolean sizeTask(String name, String size) {return true;}
+    public boolean deleteTask(String name) {return true;}
+    public boolean renameTask(String oldName, String newName) {return true;}
 
     // return information about our tasks
     //
-    //TODO: String taskElapsedTime(String name);
-    //TODO: String taskSize(String name);
-    //TODO: String taskDescription(String name);
+    public String taskElapsedTime(String name) {return "";}
+    public String taskSize(String name) {return "";}
+    public String taskDescription(String name) {return "";}
 
     // return information about some tasks
     //
-    //TODO: String minTimeForSize(String size);
-    //TODO: String maxTimeForSize(String size);
-    //TODO: String avgTimeForSize(String size);
+    public String minTimeForSize(String size) {return "";}
+    public String maxTimeForSize(String size) {return "";}
+    public String avgTimeForSize(String size) {return "";}
 
-    //TODO: Set<String> taskNamesForSize(String size);
+    public Set<String> taskNamesForSize(String size) {Set<String> set = new TreeSet<String>(); return set;}
 
     // return information about all tasks
     //
-    //TODO: String elapsedTimeForAllTasks();
-    //TODO: Set<String> taskNames();
-    //TODO: Set<String> taskSizes();
+    public String elapsedTimeForAllTasks() {return "";}
+    public Set<String> taskNames(){Set<String> set = new TreeSet<String>(); return set;}
+    public Set<String> taskSizes(){Set<String> set = new TreeSet<String>(); return set;}
 }
 
 
 
-public class Task implements Serializable{
+class Task implements Serializable{
 	String name;
 	String description;
 	String size;
@@ -123,7 +128,10 @@ public class Task implements Serializable{
 	}
 }
 
-Duration{
+class TaskDuration{
+	
+	TaskDuration(){
+	}
 	//list of start times
 	//list of end times
 	//
