@@ -25,8 +25,6 @@ public class TM{
 	public void appMain(String args[]){
 		ITMModel taskManager = new TMModel();
 		
-		System.out.println(args.length);		
-		
 		//args[0] is the case command
 		//args[1] is a name of the task to edit
 		//args[2] is the new description or size
@@ -51,85 +49,6 @@ public class TM{
 				//the task list isn't here any more, but how do I have this
 				//class manage the display?
 		}		
-
-		/*
-		String output = "";
-		ArrayList<Task> taskList = new ArrayList<Task>();
-		String fileName = "TM.log";
-	
-		taskList = getData(fileName);
-
-		int taskIndex = -1;
-		boolean successStatus = false; 
-			//Note: successStatus not used to manage success/failure output to user 
-			//at this time. Maybe in the next update of this program.
-		switch (cmd){
-        	case "start":
-				taskIndex = findIndex(taskList, name);
-				if(taskIndex >= 0){
-					successStatus = cmdStart(taskList.get(taskIndex));
-				}else{
-					taskList.add(new Task(name)); //add to the end of the list
-					successStatus = cmdStart(taskList.get(taskList.size()-1));
-				}
-				break;
-			case "stop":  		
-				taskIndex = findIndex(taskList, name);
-				if(taskIndex >= 0){
-					successStatus = cmdStop(taskList.get(taskIndex));
-				}else{
-					successStatus = false;
-			    }
-				break;
-			case "describe": 
-				taskIndex = findIndex(taskList, name);
-				if(taskIndex >= 0) {
-					successStatus = cmdDescribe(taskList.get(taskIndex), details);
-					if(args.length == 4){
-						cmdSize(taskList.get(taskIndex), details2);
-					}
-				} else {
-					if(args.length == 4){
-						taskList.add(new Task(name, details, details2));
-					} else {
-						taskList.add(new Task(name, details));
-					}
-				}		
-			    break;
-			case "summary":
-				if(name != null){
-					taskIndex = findIndex(taskList, name);
-					if(taskIndex >= 0){
-						summaryOfTask(taskList.get(taskIndex));
-					}
-				} else {
-					Duration totalTimeSpent = Duration.ofSeconds(0);
-					for(Task element : taskList){
-						summaryOfTask(element);
-						totalTimeSpent = totalTimeSpent.plus(element.getTotalTimeSpent());
-						System.out.println();
-					}
-					System.out.println("Time spent on all tasks:\t" + totalTimeSpent);
-				}
-				break;
-			case "size":
-				if(name != null){
-					taskIndex = findIndex(taskList, name);
-					if(taskIndex >= 0) {
-						cmdSize(taskList.get(taskIndex), details);
-					} else {
-						output = "Task doesn't exist.";
-					}		
-				}
-				break;
-			default:  
-				break;
-		}
-
-		saveData(fileName, taskList);
-		
-		//printResults(cmd, name, successStatus);
-		*/
 
 	}
 
@@ -172,6 +91,19 @@ public class TM{
 		}
 		return false;
 	}
+
+	void summarizeTask(Task task){
+	}
+	
+	void summarizeAllTasks(){
+		//taskNames //a set of task names
+		//for each item in the arrayList
+			//call summarizeTask
+		//taskSizes //a set of task sizes
+			//print statistics for all tasks and task sizes
+	}
+	
+	
 
 	public void summaryOfTask(Task task){
 		System.out.println("Task name: \t" + task.getName());

@@ -1,18 +1,23 @@
-import java.io.Serializable;
-import java.io.*; //is it good practice to import the whole thing?
+import java.io.*;
 import java.time.*;
 import java.util.*;
 
 public class TMModel implements ITMModel {
-
+	 ArrayList<Task> taskList;
+	
 	 // constructors
 	 TMModel(){		 
+	 		this.taskList = new ArrayList<Task>();
 	 }	
 	
     // set information in our model
     //
-    public boolean startTask(String name) {return true;}
-    public boolean stopTask(String name) {return true;}
+    public boolean startTask(String name) {
+    		return findTask(name).start();
+    }
+    public boolean stopTask(String name) {
+    		return findTask(name).stop();
+    }
     public boolean describeTask(String name, String description) {return true;}
     public boolean sizeTask(String name, String size) {return true;}
     public boolean deleteTask(String name) {return true;}
@@ -37,9 +42,17 @@ public class TMModel implements ITMModel {
     public String elapsedTimeForAllTasks() {return "";}
     public Set<String> taskNames(){Set<String> set = new TreeSet<String>(); return set;}
     public Set<String> taskSizes(){Set<String> set = new TreeSet<String>(); return set;}
+    
+    private Task findTask(String name){
+    		for(Task task: taskList){
+					if(task.getName() == name)
+					return task;
+			}
+			Task newTask = new Task(name);
+			taskList.add(newTask);
+			return newTask;
+    }
 }
-
-
 
 class Task implements Serializable{
 	String name;
