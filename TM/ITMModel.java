@@ -30,4 +30,6 @@ public interface ITMModel {
     String elapsedTimeForAllTasks();
     Set<String> taskNames();
     Set<String> taskSizes();
+    
+    Task findTask(String name);
 }

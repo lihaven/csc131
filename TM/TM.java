@@ -29,48 +29,34 @@ public class TM{
 		//args[1] is a name of the task to edit
 		//args[2] is the new description or size
 		//args[3] is an optional size update for a task
+				
+		new LogEntry(args);
 		
 		switch(args[0]){
 			
-			case "start": 		 taskManager.startTask(args[1]); break;
+			case "start": 		taskManager.startTask(args[1]); break;
 			
-			case "stop": 		 taskManager.stopTask(args[1]); break;
+			case "stop": 		taskManager.stopTask(args[1]); break;
 						
-			case "describe": 	 taskManager.describeTask(args[1],args[2]); break;
+			case "describe": 	taskManager.describeTask(args[1],args[2]); break;
 						
-			case "size":		 taskManager.sizeTask(args[1],args[2]); break;
+			case "size":		taskManager.sizeTask(args[1],args[2]); break;
 			
-			case "delete":     taskManager.deleteTask(args[1]); break;
+			case "delete":    taskManager.deleteTask(args[1]); break;
 				
-			case "rename":     taskManager.renameTask(args[1],args[2]); break;
+			case "rename":    taskManager.renameTask(args[1],args[2]); break;
 			
-			case "summary":    System.out.println("Summary to come later.");  break;
-				//TODO				
-				//the task list isn't here any more, but how do I have this
-				//class manage the display?
+			case "summary":   if(args.length == 1){
+										//summarize all tasks
+									} else {
+										summarizeTask(taskManager.findTask(args[1]));		
+									}
+									break;
 		}		
 
 	}
 
-	void printResults(String cmd, String name, boolean success){
-		switch (cmd) {
-			case "start":
-				if(success){
-					System.out.println("\t" + name + " is now in progress.");
-				} else {
-					System.out.println("\t" + name + " could not be started.");
-				}
-			case "stop":
-				if(success){
-					System.out.println("\t" + name + " is no longer in progress.");
-				} else {
-					System.out.println("\t" + name + " could not be found.");
-				}
-			case "describe":
-			case "summary":
-			default:
-		}
-	}
+
 
 
 
@@ -92,9 +78,6 @@ public class TM{
 		return false;
 	}
 
-	void summarizeTask(Task task){
-	}
-	
 	void summarizeAllTasks(){
 		//taskNames //a set of task names
 		//for each item in the arrayList
@@ -103,9 +86,8 @@ public class TM{
 			//print statistics for all tasks and task sizes
 	}
 	
-	
-
-	public void summaryOfTask(Task task){
+	public void summarizeTask(Task task){
+		//Task task = taskManager.findTask(name);
 		System.out.println("Task name: \t" + task.getName());
 		System.out.println("Task size: \t" + task.getSize());
 		System.out.println("Time spent:\t" + task.getTotalTimeSpent());
@@ -187,4 +169,55 @@ public class TM{
 
 }
 
+class LogEntry{
+	LogEntry(String args[]){
+		//new string
+		String entry = LocalDate.now() + " " + LocalTime.now() + " ";
+		//for each command, append to string
+		for(String cmd: args){
+			entry = entry + " " + cmd + "\n";		
+		}
+		//write string
+		write(entry);
+	}	
+	
+	
+	public void write(String toWrite) {
+		//https://stackoverflow.com/questions/10667734/java-file-open-a-file-and-write-to-it
+   	File file = new File("TMCmd.log");
+    	FileWriter writer;
+    	try {
+    			writer = new FileWriter(file, true);
+        		PrintWriter printer = new PrintWriter(writer);
+        		printer.append(toWrite);
+        		printer.close();    		
+    	} catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+     	}
+    }	
+}
 
+/* Not used right now
+	void printResults(String cmd, String name, boolean success){
+		switch (cmd) {
+			case "start":
+				if(success){
+					System.out.println("\t" + name + " is now in progress.");
+				} else {
+					System.out.println("\t" + name + " could not be started.");
+				}
+			case "stop":
+				if(success){
+					System.out.println("\t" + name + " is no longer in progress.");
+				} else {
+					System.out.println("\t" + name + " could not be found.");
+				}
+			case "describe":
+			case "summary":
+			default:
+		}
+	}
+
+
+*/

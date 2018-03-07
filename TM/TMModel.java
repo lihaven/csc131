@@ -43,7 +43,7 @@ public class TMModel implements ITMModel {
     public Set<String> taskNames(){Set<String> set = new TreeSet<String>(); return set;}
     public Set<String> taskSizes(){Set<String> set = new TreeSet<String>(); return set;}
     
-    private Task findTask(String name){
+    public Task findTask(String name){
     		for(Task task: taskList){
 					if(task.getName() == name)
 					return task;
