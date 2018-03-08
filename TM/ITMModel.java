@@ -32,4 +32,5 @@ public interface ITMModel {
     Set<String> taskSizes();
     
     Task findTask(String name);
+    void close();
 }

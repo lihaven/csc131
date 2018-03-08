@@ -9,10 +9,8 @@
  * facing messages are lacking.
  */ 
 
-import java.util.Arrays;
-import java.util.ArrayList;
-import java.io.Serializable;
-import java.io.*; //is it good practice to import the whole thing?
+import java.util.*;
+import java.io.*; 
 import java.time.*;
 
 public class TM{
@@ -23,15 +21,14 @@ public class TM{
 	}
 	
 	public void appMain(String args[]){
+		new LogEntry(args);		
 		ITMModel taskManager = new TMModel();
-		
+						
 		//args[0] is the case command
 		//args[1] is a name of the task to edit
 		//args[2] is the new description or size
 		//args[3] is an optional size update for a task
 				
-		new LogEntry(args);
-		
 		switch(args[0]){
 			
 			case "start": 		taskManager.startTask(args[1]); break;
@@ -47,15 +44,20 @@ public class TM{
 			case "rename":    taskManager.renameTask(args[1],args[2]); break;
 			
 			case "summary":   if(args.length == 1){
-										//summarize all tasks
+										Set set = taskManager.taskNames();
+										Iterator<String> itr = set.iterator();
+        								while(itr.hasNext()){
+            							summarizeTask(taskManager.findTask(itr.next()));
+        								}
 									} else {
 										summarizeTask(taskManager.findTask(args[1]));		
 									}
 									break;
-		}		
-
+		}	
+		
+		taskManager.close();
+		
 	}
-
 
 
 
@@ -90,7 +92,7 @@ public class TM{
 		//Task task = taskManager.findTask(name);
 		System.out.println("Task name: \t" + task.getName());
 		System.out.println("Task size: \t" + task.getSize());
-		System.out.println("Time spent:\t" + task.getTotalTimeSpent());
+		System.out.println("Time spent:\t" + task.getDuration());
 		for(int i = 0; i < task.numSessions(); i++){
 			System.out.print("Session " + i + ":\t");
 			System.out.println(task.getStart(i) + " to " + task.getStop(i));
